@@ -270,6 +270,23 @@ pipeline {
     }
 }
 ```
+### How to integrate tokens or secret in your jenkins
+```
+pipeline {
+    agent any
+
+    stages {
+        stage('Retrieve Secrets') {
+            steps {
+                script {
+                    // Retrieve the secrets from Vault using the Jenkins Vault plugin API
+                    def secrets = vault.logIn(['-method': 'token', '-token': 'your-vault-token'])
+                    .getSecrets(['secret/path'])
+                    
+                    // Inject the secrets as environment variables
+                    env.SECRET_1 = secrets
+```		    
+
 
 ## HOW TO SET Parameters
 ```
